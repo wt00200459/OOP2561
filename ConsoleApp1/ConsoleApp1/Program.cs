@@ -6,14 +6,50 @@ using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
-    class Program
+    interface ISoundable { string MakeSound(); }
+    interface ITellName { string TellName(); }
+    class Animal
     {
-        static void Main(string[] args)
+        class Dog : Animal, ISoundable, ITellName
         {
-
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
+            string ISoundable.MakeSound() { return " Bok Bok"; }
+            string ITellName.TellName() { return " Dog "; }
 
         }
+        class Cat : Animal, ISoundable, ITellName
+        {
+            string ISoundable.MakeSound() { return " Meaw Meaw"; }
+            string ITellName.TellName() { return " Cat "; }
+
+        }
+        class Fish : Animal,  ITellName
+        {
+           
+            string ITellName.TellName() { return " Fish "; }
+
+        }
+
+        static void Main()
+        {
+            Animal[] animal = new Animal[3];
+            animal[0] = new Cat();
+            animal[1] = new Dog();
+            animal[2] = new Fish();
+            foreach (Animal s in animal)
+            {
+                ITellName a = s as ITellName;
+                ISoundable b = s as ISoundable;
+                if (a != null)
+                    Console.WriteLine(a.TellName());
+                if (b != null)
+                {
+                    Console.WriteLine(b.MakeSound());
+                    Console.WriteLine("==============");
+                }
+            }
+        }
+
+
     }
 }
+
